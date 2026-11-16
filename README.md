@@ -2,6 +2,8 @@
 
 s3-policy-audit reads exported S3 bucket policies (the JSON from `aws s3api get-bucket-policy`) and bucket configuration exports (public access block, ACL, encryption, versioning, logging). It reports public principals with no condition, wildcard actions and resources, `NotPrincipal` and `NotAction` allows, a missing TLS-only deny, an incomplete public access block, ACL grants to everyone, and missing default encryption, versioning or access logging.
 
+![Terminal demo of s3-policy-audit on its sample data](docs/demo.svg)
+
 **Live demo:** https://jvch0512.github.io/s3-policy-audit/ (Synthetic data.)
 
 Rust 1.70+, serde_json only. The demo page is rendered from the tool's `--tsv` output by `scripts/site.py` (Python 3, only needed to regenerate the page).
@@ -53,3 +55,13 @@ make test    # Rust unit tests and CLI integration tests: every rule on good and
 ```
 
 MIT.
+
+## Code scanning (SARIF)
+
+`scripts/tsv2sarif.py` converts the `--tsv` output into SARIF 2.1.0, so findings show up in GitHub code scanning:
+
+```sh
+target/release/s3-policy-audit examples --tsv | python3 scripts/tsv2sarif.py --tool s3-policy-audit --prefix examples > results.sarif
+```
+
+Upload `results.sarif` with `github/codeql-action/upload-sarif`. Severities map to SARIF levels (critical and high to error, medium to warning, low and info to note) and to a `security-severity` score.
