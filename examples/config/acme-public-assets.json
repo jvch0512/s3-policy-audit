@@ -1,0 +1,8 @@
+{
+  "Bucket": "acme-public-assets",
+  "PublicAccessBlock": { "PublicAccessBlockConfiguration": { "BlockPublicAcls": false, "IgnorePublicAcls": false, "BlockPublicPolicy": false, "RestrictPublicBuckets": false } },
+  "Acl": { "Grants": [ { "Grantee": { "Type": "Group", "URI": "http://acs.amazonaws.com/groups/global/AllUsers" }, "Permission": "READ" },
+                       { "Grantee": { "Type": "Group", "URI": "http://acs.amazonaws.com/groups/global/AuthenticatedUsers" }, "Permission": "WRITE" } ] },
+  "Versioning": "Suspended",
+  "Logging": null
+}

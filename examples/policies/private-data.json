@@ -1,0 +1,8 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    { "Sid": "AppRead", "Effect": "Allow", "Principal": { "AWS": "arn:aws:iam::111122223333:role/app" }, "Action": ["s3:GetObject"], "Resource": "arn:aws:s3:::acme-private-data/*" },
+    { "Sid": "DenyInsecureTransport", "Effect": "Deny", "Principal": "*", "Action": "s3:*", "Resource": ["arn:aws:s3:::acme-private-data", "arn:aws:s3:::acme-private-data/*"], "Condition": { "Bool": { "aws:SecureTransport": "false" } } },
+    { "Sid": "VpcOnly", "Effect": "Allow", "Principal": "*", "Action": "s3:GetObject", "Resource": "arn:aws:s3:::acme-private-data/*", "Condition": { "StringEquals": { "aws:SourceVpce": "vpce-0abc" } } }
+  ]
+}

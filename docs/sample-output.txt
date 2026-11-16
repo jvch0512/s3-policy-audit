@@ -1,0 +1,25 @@
+4 files, 12 findings
+CRITICAL S3001 policies/public-assets.json#Statement[UploadFromAnywhere]
+         anyone can write or delete: Action s3:PutObject, s3:PutObjectAcl
+HIGH     S3005 config/acme-public-assets.json#PublicAccessBlock
+         public access block is not fully on: BlockPublicAcls, IgnorePublicAcls, BlockPublicPolicy, RestrictPublicBuckets not true
+HIGH     S3009 config/acme-public-assets.json#Acl.Grants[0]
+         ACL grants READ to everyone
+HIGH     S3009 config/acme-public-assets.json#Acl.Grants[1]
+         ACL grants WRITE to any AWS account
+HIGH     S3001 policies/public-assets.json#Statement[PublicRead]
+         anyone on the internet can read: Action s3:GetObject
+MEDIUM   S3006 config/acme-public-assets.json#Encryption
+         no default encryption configured
+MEDIUM   S3001 policies/private-data.json#Statement[VpcOnly]
+         public principal with a Condition: check that the condition really restricts who can call
+MEDIUM   S3002 policies/public-assets.json#Statement[ReleaseTeam]
+         wildcard action for a named principal: grant only the actions needed
+MEDIUM   S3003 policies/public-assets.json#Statement[ReleaseTeam]
+         Resource is *: scope it to the bucket and its objects
+MEDIUM   S3004 policies/public-assets.json
+         no statement denies requests where aws:SecureTransport is false
+LOW      S3007 config/acme-public-assets.json#Versioning
+         versioning is not enabled: deletes and overwrites cannot be undone
+LOW      S3008 config/acme-public-assets.json#Logging
+         server access logging is off

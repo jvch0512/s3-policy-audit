@@ -1,0 +1,8 @@
+{
+  "Bucket": "acme-private-data",
+  "PublicAccessBlock": { "PublicAccessBlockConfiguration": { "BlockPublicAcls": true, "IgnorePublicAcls": true, "BlockPublicPolicy": true, "RestrictPublicBuckets": true } },
+  "Encryption": { "Rules": [ { "ApplyServerSideEncryptionByDefault": { "SSEAlgorithm": "aws:kms" } } ] },
+  "Versioning": "Enabled",
+  "Logging": { "TargetBucket": "acme-logs", "TargetPrefix": "s3/" },
+  "Acl": { "Grants": [ { "Grantee": { "Type": "CanonicalUser", "ID": "abc" }, "Permission": "FULL_CONTROL" } ] }
+}
